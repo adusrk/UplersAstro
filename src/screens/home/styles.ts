@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
   wheelContainer: {
     marginTop: 10,
     borderRadius: 8,
-    overflow: 'hidden',
     zIndex: 1000,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 10 },
@@ -98,7 +97,6 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   wheelBackground: {
-    maxHeight: 300,
     borderRadius: 16,
     backgroundColor: 'rgba(15, 15, 40, 0.98)',
   },
@@ -145,7 +143,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
     shadowRadius: 16,
-    elevation: 8,
   },
   cardBackground: {
     padding: 25,
@@ -241,6 +238,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 6,
   },
+  modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+},
 });
 
 export default styles;

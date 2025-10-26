@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { Animated, View, TouchableOpacity, Text } from 'react-native';
 import { zodiacSigns } from '../../../hooks/useHoroscope';
 import styles from '../styles';
 
@@ -34,7 +34,7 @@ const ZodiacWheel: React.FC<ZodiacWheelProps> = ({
       ]}
     >
       <View style={styles.wheelBackground}>
-        <ScrollView contentContainerStyle={styles.wheelScroll}>
+        <View style={styles.wheelContent}>
           {zodiacSigns.map((sign) => (
             <TouchableOpacity
               key={sign.value}
@@ -51,7 +51,7 @@ const ZodiacWheel: React.FC<ZodiacWheelProps> = ({
               )}
             </TouchableOpacity>
           ))}
-        </ScrollView>
+        </View>
       </View>
     </Animated.View>
   );

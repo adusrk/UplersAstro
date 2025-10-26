@@ -61,6 +61,7 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
     <KeyboardAvoidingView 
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       <LinearGradient
         colors={['#0F0F2D', '#1A1A4B', '#2D1A4B']}
