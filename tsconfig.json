@@ -1,0 +1,27 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": ["react", "react-native"],
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "App.tsx",
+    "AstroContext.ts",
+    "HomeScreen.ts",
+    "JournalScreen.ts",
+    "api.ts",
+    "dateUtils.ts",
+    "constants.ts"
+  ],
+  "exclude": ["node_modules", "Pods"]
+}
