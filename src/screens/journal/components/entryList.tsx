@@ -10,7 +10,9 @@ const EntryList: React.FC<EntryListProps> = ({
   fadeAnim,
   slideAnim,
   deleteEntry,
+  editEntry,
   formatEntryDate,
+  editingEntry,
 }) => {
   if (!entries.length) return null;
 
@@ -27,7 +29,9 @@ const EntryList: React.FC<EntryListProps> = ({
           key={entry.timestamp}
           entry={entry}
           deleteEntry={deleteEntry}
+          editEntry={editEntry}
           formatEntryDate={formatEntryDate}
+          isEditing={editingEntry?.timestamp === entry.timestamp}
         />
       ))}
     </Animated.View>

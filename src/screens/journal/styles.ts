@@ -188,6 +188,32 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontWeight: '500',
   },
+editingIndicator: {
+  backgroundColor: 'rgba(99, 102, 241, 0.2)',
+  padding: 8,
+  borderRadius: 8,
+  marginBottom: 8,
+  borderLeftWidth: 3,
+  borderLeftColor: '#6366F1',
+},
+editingText: {
+  color: '#6366F1',
+  fontSize: 12,
+  fontWeight: '600',
+},
+editButton: {
+  padding: 6,
+  borderRadius: 6,
+  marginRight: 8,
+},
+editButtonText: {
+  fontSize: 14,
+},
+editingEntryCard: {
+  borderWidth: 2,
+  borderColor: '#6366F1',
+  borderRadius: 12,
+},
 });
 
 export default styles;

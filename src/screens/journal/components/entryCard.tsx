@@ -4,8 +4,17 @@ import styles from '../styles';
 import { EntryCardProps } from '../../../types';
 import { JOURNAL_TEXTS } from '../../../constants/text';
 
-const EntryCard: React.FC<EntryCardProps> = ({ entry, deleteEntry, formatEntryDate }) => (
-  <Animated.View style={styles.entryCard}>
+const EntryCard: React.FC<EntryCardProps> = ({ 
+  entry, 
+  deleteEntry, 
+  editEntry, 
+  formatEntryDate,
+  isEditing 
+}) => (
+  <Animated.View style={[
+    styles.entryCard,
+    isEditing && styles.editingEntryCard
+  ]}>
     <View style={styles.entryBackground}>
       <View style={styles.entryHeader}>
         <View style={styles.entryMeta}>
@@ -14,7 +23,16 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry, deleteEntry, formatEntryDa
         </View>
         <View style={styles.entryActions}>
           <Text style={styles.entryMood}>{entry.mood}</Text>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => deleteEntry(entry.timestamp)}>
+          <TouchableOpacity 
+            style={styles.editButton} 
+            onPress={() => editEntry(entry.timestamp)}
+          >
+            <Text style={styles.editButtonText}>✏️</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.deleteButton} 
+            onPress={() => deleteEntry(entry.timestamp)}
+          >
             <Text style={styles.deleteButtonText}>🗑️</Text>
           </TouchableOpacity>
         </View>

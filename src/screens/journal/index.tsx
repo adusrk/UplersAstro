@@ -32,7 +32,10 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
     characterCount,
     saveEntry,
     deleteEntry,
+    editEntry,
     formatEntryDate,
+    editingEntry,
+    setEditingEntry,
   } = useJournal();
 
   const {
@@ -61,7 +64,7 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
     <KeyboardAvoidingView 
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       <LinearGradient
         colors={['#0F0F2D', '#1A1A4B', '#2D1A4B']}
@@ -92,6 +95,8 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
           characterCount={characterCount}
           handleTextFocus={handleTextFocus}
           handleTextBlur={handleTextBlur}
+          editingEntry={editingEntry}
+          setEditingEntry={setEditingEntry}
         />
 
         <SaveButton
@@ -100,6 +105,7 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
           entries={entries}
           saveEntry={saveEntry}
           animateSaveButton={animateSaveButton}
+          editingEntry={editingEntry}
         />
 
         <EntryList
@@ -107,7 +113,9 @@ const JournalScreen: React.FC<Props> = ({ navigation }) => {
           fadeAnim={fadeAnim}
           slideAnim={slideAnim}
           deleteEntry={deleteEntry}
+          editEntry={editEntry}
           formatEntryDate={formatEntryDate}
+          editingEntry={editingEntry}
         />
       </ScrollView>
     </KeyboardAvoidingView>

@@ -13,7 +13,9 @@ export type HeaderProps = {
 export type EntryCardProps = {
   entry: JournalEntry;
   deleteEntry: (timestamp: number) => void;
+  editEntry: (timestamp: number) => void;
   formatEntryDate: (timestamp: number) => string;
+  isEditing: boolean;
 };
 
 export type EntryListProps = {
@@ -21,7 +23,9 @@ export type EntryListProps = {
   fadeAnim: Animated.Value;
   slideAnim: Animated.Value;
   deleteEntry: (timestamp: number) => void;
+  editEntry: (timestamp: number) => void;
   formatEntryDate: (timestamp: number) => string;
+  editingEntry: JournalEntry | null;
 };
 
 export type JournalInputProps = {
@@ -35,6 +39,8 @@ export type JournalInputProps = {
   characterCount: number;
   handleTextFocus: () => void;
   handleTextBlur: () => void;
+  editingEntry: JournalEntry | null;
+  setEditingEntry: (entry: JournalEntry | null) => void;
 };
 
 export type SaveButtonProps = {
@@ -43,4 +49,5 @@ export type SaveButtonProps = {
   entries: JournalEntry[];
   saveEntry: (animateSaveButton: () => void) => void;
   animateSaveButton: () => void;
+  editingEntry: JournalEntry | null;
 };

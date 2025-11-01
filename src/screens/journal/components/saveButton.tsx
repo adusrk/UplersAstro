@@ -11,10 +11,18 @@ const SaveButton: React.FC<SaveButtonProps> = ({
   entries,
   saveEntry,
   animateSaveButton,
+  editingEntry,
 }) => {
   const isTodayEntrySaved = entries.some(
     entry => new Date(entry.timestamp).toDateString() === new Date().toDateString()
   );
+
+  const getButtonText = () => {
+    if (editingEntry) {
+      return JOURNAL_TEXTS.updateEntry;
+    }
+    return isTodayEntrySaved ? JOURNAL_TEXTS.updateEntry : JOURNAL_TEXTS.saveEntry;
+  };
 
   return (
     <Animated.View style={[styles.saveButtonContainer, { transform: [{ scale: saveButtonAnim }] }]}>
@@ -29,9 +37,11 @@ const SaveButton: React.FC<SaveButtonProps> = ({
           }
           style={styles.saveButtonGradient}
         >
-          <Text style={styles.saveButtonIcon}>{JOURNAL_TEXTS.saveIcon}</Text>
+          <Text style={styles.saveButtonIcon}>
+            {editingEntry ? '✏️' : JOURNAL_TEXTS.saveIcon}
+          </Text>
           <Text style={styles.saveButtonText}>
-            {isTodayEntrySaved ? JOURNAL_TEXTS.updateEntry : JOURNAL_TEXTS.saveEntry}
+            {getButtonText()}
           </Text>
         </LinearGradient>
       </TouchableOpacity>

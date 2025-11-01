@@ -10,6 +10,7 @@ export const useJournal = () => {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
+  const [editingEntry, setEditingEntry] = useState<JournalEntry | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -47,24 +48,34 @@ export const useJournal = () => {
     const newEntry: JournalEntry = {
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
       text: journalText,
-      timestamp: Date.now(),
+      timestamp: editingEntry ? editingEntry.timestamp : Date.now(),
       mood: getMoodFromText(journalText),
     };
 
-    const updatedEntries = [
-      newEntry,
-      ...entries.filter(
-        entry => new Date(entry.timestamp).toDateString() !== new Date().toDateString()
-      ),
-    ];
+    let updatedEntries;
+    if (editingEntry) {
+      // Update existing entry
+      updatedEntries = entries.map(entry => 
+        entry.timestamp === editingEntry.timestamp ? newEntry : entry
+      );
+    } else {
+      // Create new entry
+      updatedEntries = [
+        newEntry,
+        ...entries.filter(
+          entry => new Date(entry.timestamp).toDateString() !== new Date().toDateString()
+        ),
+      ];
+    }
 
     await saveJournalEntries(updatedEntries);
     setEntries(updatedEntries);
     setIsEditing(false);
+    setEditingEntry(null);
 
     Alert.alert(
-      JOURNAL_CONSTANTS.alerts.saveSuccess.title,
-      JOURNAL_CONSTANTS.alerts.saveSuccess.message,
+      editingEntry ? JOURNAL_CONSTANTS.alerts.updateSuccess.title : JOURNAL_CONSTANTS.alerts.saveSuccess.title,
+      editingEntry ? JOURNAL_CONSTANTS.alerts.updateSuccess.message : JOURNAL_CONSTANTS.alerts.saveSuccess.message,
       [{ text: 'Continue Writing', style: 'cancel' }]
     );
   };
@@ -104,6 +115,12 @@ export const useJournal = () => {
             await saveJournalEntries(updatedEntries);
             setEntries(updatedEntries);
 
+            // If we're editing this entry, clear the editing state
+            if (editingEntry && editingEntry.timestamp === timestamp) {
+              setEditingEntry(null);
+              setJournalText('');
+            }
+
             Alert.alert(
               JOURNAL_CONSTANTS.alerts.deleteSuccess.title,
               JOURNAL_CONSTANTS.alerts.deleteSuccess.message
@@ -112,6 +129,15 @@ export const useJournal = () => {
         },
       ]
     );
+  };
+
+  const editEntry = (timestamp: number) => {
+    const entryToEdit = entries.find(entry => entry.timestamp === timestamp);
+    if (entryToEdit) {
+      setEditingEntry(entryToEdit);
+      setJournalText(entryToEdit.text);
+      setIsEditing(true);
+    }
   };
 
   return {
@@ -123,6 +149,9 @@ export const useJournal = () => {
     characterCount,
     saveEntry,
     deleteEntry,
+    editEntry,
     formatEntryDate,
+    editingEntry,
+    setEditingEntry,
   };
 };
